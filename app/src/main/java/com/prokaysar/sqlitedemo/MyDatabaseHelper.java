@@ -73,4 +73,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = database.rawQuery(SELECT_ALL,null);
         return cursor;
     }
+    public boolean updateData(String id,String name,String gender,String age){
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ID,id);
+        contentValues.put(NAME,name);
+        contentValues.put(GENDER,gender);
+        contentValues.put(AGE,age);
+        database.update(TABLE_NAME,contentValues,ID+" = ?",new String[]{id});
+        return true;
+    }
 }

@@ -1,6 +1,7 @@
 package com.prokaysar.sqlitedemo;
 
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
@@ -22,9 +23,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        nameText = findViewById(R.id.name_id);
-        genderText = findViewById(R.id.gender_id);
-        ageText = findViewById(R.id.age_id);
+        nameText = findViewById(R.id.cname_id);
+        genderText = findViewById(R.id.cgender_id);
+        ageText = findViewById(R.id.cage_id);
         insertBtn = findViewById(R.id.insert_id);
         selectBtn = findViewById(R.id.read_id);
         updateBtn = findViewById(R.id.update_id);
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
                 case R.id.update_id:
 
+                    startActivity(new Intent(MainActivity.this,UpdateActivity.class));
                 break;
                 case R.id.delete_id:
 
