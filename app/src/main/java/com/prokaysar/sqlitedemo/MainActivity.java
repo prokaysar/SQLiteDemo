@@ -1,7 +1,9 @@
 package com.prokaysar.sqlitedemo;
 
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -50,11 +52,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(this, "Data not inserted", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(this, "Data row : "+rowId+" inserted", Toast.LENGTH_SHORT).show();
-
                 }
                 break;
                 case R.id.read_id:
 
+                    Cursor result = myDatabaseHelper.displayData();
+                    if (result.getCount()==0){
+                        //show some message
+                        showData("Error!","No data found.");
+
+                        return;
+                    }else{
+                        StringBuffer stringBuffer = new StringBuffer();
+                        while (result.moveToNext()){
+                            stringBuffer.append("ID : "+result.getString(0)+"\n");
+                            stringBuffer.append("Name : "+result.getString(1)+"\n");
+                            stringBuffer.append("Age : "+result.getString(2)+"\n");
+                            stringBuffer.append("Gender : "+result.getString(3)+"\n"+"\n");
+                        }
+                        showData("ResultSet ",stringBuffer.toString());
+                    }
                 break;
                 case R.id.update_id:
 
@@ -64,6 +81,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
         }
+    }
+    private void showData(String title, String data) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(data);
+        builder.setCancelable(true);
+        builder.show();
     }
 
 }

@@ -3,7 +3,6 @@ package com.prokaysar.sqlitedemo;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
@@ -28,7 +27,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String DROP_TABLE = "drop table if exists "+TABLE_NAME+"";
 
     //select data
-    private static final String READ_DATA = "select * from "+TABLE_NAME+"";
+    private static final String SELECT_ALL = "select * from "+TABLE_NAME+"";
 
 
 
@@ -61,30 +60,17 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
        }
     }
     public long insertData(String name,String age,String gender){
-
-        // getWritableDatabase method data base return kore thake
         SQLiteDatabase database = this.getWritableDatabase();
-
-        // contentValue class all value ke eksathe joma rakhe
         ContentValues contentValues = new ContentValues();
         contentValues.put(NAME,name);
         contentValues.put(AGE,age);
         contentValues.put(GENDER,gender);
-
-        // insert method return kore  row er id ja long type er
-        // insert method row number return kore
-        // insert method successfully data insert korte na parle -1 return kore
         long rowId =  database.insert(TABLE_NAME,null,contentValues);
         return rowId;
     }
-    public Cursor selectData(){
+    public Cursor displayData(){
         SQLiteDatabase database = this.getWritableDatabase();
-
-        // rawQuery ekoti result set return kore
-        //result set ke cursor interface er maje store korte hobe
-        // cursor ke read or write korar jonno use kora hoy
-        Cursor cursor = database.rawQuery(READ_DATA,null);
+        Cursor cursor = database.rawQuery(SELECT_ALL,null);
         return cursor;
-
     }
 }
