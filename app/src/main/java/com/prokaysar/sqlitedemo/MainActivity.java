@@ -80,6 +80,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
                 case R.id.delete_id:
 
+                   int row = myDatabaseHelper.deleteData("1");
+                   if (row>0){
+                       Toast.makeText(this, "Data row : "+row+" deleted", Toast.LENGTH_SHORT).show();
+
+                   }else {
+                       Toast.makeText(this, "Data row : "+row+" not deteted", Toast.LENGTH_SHORT).show();
+                   }
                 break;
 
         }
